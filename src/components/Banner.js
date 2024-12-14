@@ -1,3 +1,4 @@
+// Banner.js
 import { useState, useEffect } from "react";
 import { FiArrowRightCircle } from "react-icons/fi";
 import headerImg from "../assets/img/me.png";
@@ -8,29 +9,21 @@ export const Banner = () => {
   const [text, setText] = useState('');
   const [delta, setDelta] = useState(300 - Math.random() * 100);
   const [index, setIndex] = useState(1);
-  const toRotate = ["software Developer", "Web Designer"];
+  const toRotate = ["Software Developer", "Web Designer"];
   const period = 2000;
 
   useEffect(() => {
-    let ticker = setInterval(() => {
-      tick();
-    }, delta);
-
+    const ticker = setInterval(() => tick(), delta);
     return () => clearInterval(ticker);
   }, [text]);
 
   const tick = () => {
     let i = loopNum % toRotate.length;
     let fullText = toRotate[i];
-    let updatedText = isDeleting
-      ? fullText.substring(0, text.length - 1)
-      : fullText.substring(0, text.length + 1);
+    let updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1);
 
     setText(updatedText);
-
-    if (isDeleting) {
-      setDelta((prevDelta) => prevDelta / 2);
-    }
+    setDelta(isDeleting ? delta / 2 : delta);
 
     if (!isDeleting && updatedText === fullText) {
       setIsDeleting(true);
@@ -53,17 +46,14 @@ export const Banner = () => {
                 Welcome to my Portfolio
               </span>
             </div>
-            <h1 className="text-4xl font-bold mb-5">
+            <h1 className="text-3xl sm:text-4xl font-bold mb-5">
               Hi! I'm Merveille{" "}
               <span className="text-indigo-400">
                 <span className="wrap">{text}</span>
               </span>
             </h1>
             <p className="text-gray-400 mb-8">
-            Passionate about web development and
-             intuitive design, I create innovative
-              solutions to deliver engaging digital 
-              experiences that are accessible to all.
+              Passionate about web development and intuitive design, I create innovative solutions to deliver engaging digital experiences that are accessible to all.
             </p>
             <button
               onClick={() => console.log("connect")}
@@ -78,7 +68,7 @@ export const Banner = () => {
             <img
               src={headerImg}
               alt="Header"
-              className="mx-auto w-2/3 md:w-full animate-zoom-in"
+              className="w-2/3 md:w-full mx-auto animate-zoom-in"
             />
           </div>
         </div>
